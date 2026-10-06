@@ -92,6 +92,7 @@ _ADAPTER_TYPE_MAP: dict[str, tuple[str, str, str, str | None]] = {
         "SQLServerCredentials",
         "sqlserver",
     ),
+    "fabric": ("dbt.adapters.fabric", "FabricAdapter", "FabricCredentials", "fabric"),
 }
 
 SUPPORTED_ADAPTER_TYPES = frozenset(_ADAPTER_TYPE_MAP)

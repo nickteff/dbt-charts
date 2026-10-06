@@ -1231,6 +1231,18 @@ class TestSQLServerAdapter:
             "sqlserver",
         )
 
+    def test_fabric_map_entry_names_dbt_fabric(self) -> None:
+        from dbt_charts.core.execute.adapters.dbt_adapter_factory import (
+            _ADAPTER_TYPE_MAP,
+        )
+
+        assert _ADAPTER_TYPE_MAP["fabric"] == (
+            "dbt.adapters.fabric",
+            "FabricAdapter",
+            "FabricCredentials",
+            "fabric",
+        )
+
     def test_build_adapter_selects_sqlserver_credentials(self) -> None:
         from dbt_charts.core.execute.adapters.dbt_adapter_factory import build_adapter
 

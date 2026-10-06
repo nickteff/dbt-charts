@@ -25,6 +25,7 @@ DIALECTS: list[str | None] = [
     "databricks",
     "mysql",
     "sqlserver",
+    "fabric",
     None,
 ]
 

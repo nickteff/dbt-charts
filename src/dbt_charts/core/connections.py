@@ -155,6 +155,16 @@ def classify_connection_error(source_type: str, exc: Exception) -> WarehouseProb
         # generic one.
         if "communication error" in text or "connection time out" in text:
             return WarehouseUnreachableError(_UNREACHABLE_MESSAGE, detail=text)
+    elif source_type in ("fabric", "sqlserver", "mssql"):
+        # Only the one phrase observed live (wrong database name against a
+        # Fabric warehouse); the server cannot distinguish a missing database
+        # from a permission failure at this stage, so the message says both.
+        if "database was not found or you have insufficient permissions" in text:
+            return WarehouseDatabaseNotFoundError(
+                "The named database does not exist, or the credential lacks "
+                "permission to connect to it.",
+                detail=text,
+            )
     elif source_type == "snowflake":
         if "Incorrect username or password" in text:
             return WarehouseAuthError(

@@ -205,6 +205,10 @@ sqlserver = [
     "dbt-sqlserver[pyodbc]>=1.10,<2.0",
 ]
 
+fabric = [
+    "dbt-fabric>=1.9,<2.0",
+]
+
 mcp = [
     # Capped at 1.x: `ai/mcp/server.py` uses the low-level decorator API
     # (`@server.list_resources()`, `@server.call_tool()`, ...), which mcp 2.0

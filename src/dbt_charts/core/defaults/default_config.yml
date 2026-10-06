@@ -109,6 +109,7 @@ execution:
     sqlserver: tsql
     mssql: tsql
     mariadb: mysql
+    fabric: tsql
 
 
 # Project ceiling for board html_policy.  DCT_HTML_POLICY_CEILING env var

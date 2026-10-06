@@ -34,3 +34,10 @@ def test_variable_defaults_parity():
         and not field.exclude
     }
     assert model_defaults == _VARIABLE_DEFAULTS
+
+
+def test_fabric_dialect_parses_tsql_top():
+    """Fabric resolves to T-SQL, so the query guard accepts SELECT TOP n."""
+    from dbt_charts.core.compile.sql_guard import validate_select_only
+
+    validate_select_only("SELECT TOP 5 * FROM t", dialect="fabric")

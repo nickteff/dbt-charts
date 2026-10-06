@@ -768,6 +768,22 @@ def test_test_connection_classifies_postgres_auth_failure(
     assert driver_text in exc.detail
 
 
+@pytest.mark.parametrize("source_type", ["fabric", "sqlserver", "mssql"])
+def test_classify_connection_error_tsql_database_not_found(source_type: str) -> None:
+    driver_text = (
+        "Database Error\n  Driver Error: Invalid authorization specification;"
+        " DDBC Error: [Microsoft][SQL Server]Login failed for user"
+        " '<token-identified principal>'.Reason: Authentication was successful,"
+        " but the database was not found or you have insufficient permissions"
+        " to connect to it."
+    )
+    exc = classify_connection_error(source_type, RuntimeError(driver_text))
+
+    assert type(exc) is WarehouseDatabaseNotFoundError
+    assert driver_text not in str(exc)
+    assert driver_text in exc.detail
+
+
 def test_test_connection_classifies_postgres_database_not_found(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
